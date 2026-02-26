@@ -16,14 +16,14 @@ version: 2
 description: Analyze a free-text request and produce a concrete implementation plan
 target_scope: current directory (always)
 input: free-text request from user
-agents: shared definitions from ~/.claude/agents/
+agents: shared definitions registered by plugin
 ```
 
 ---
 
 ## Agents
 
-All agents are defined in `~/.claude/agents/` (shared across pipelines):
+All agents are registered by the plugin (shared across pipelines):
 
 | Agent | Subagent Type | Phase | Role |
 |-------|--------------|-------|------|

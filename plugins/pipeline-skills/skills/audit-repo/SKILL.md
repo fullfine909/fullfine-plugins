@@ -122,8 +122,8 @@ Write `{RUN_DIR}/run-manifest.json` with pipeline version, git commit (from targ
 Read the phase definition and execute:
 
 1. Create output directory: `mkdir -p {RUN_DIR}/phase-01`
-2. Read `~/.claude/skills/audit-repo/phases/01-discovery.md` for agent prompts
-3. Read `~/.claude/skills/audit-repo/templates/findings-format.md` for output format
+2. Read `phases/01-discovery.md` for agent prompts
+3. Read `templates/findings-format.md` for output format
 4. **Inject `{TARGET_PATH}` into every agent prompt**: Add to each agent's prompt preamble:
    ```
    ## Target Repository
@@ -171,7 +171,7 @@ or "stop" to end the audit here.
    - If `MODE=full`: use `{RUN_DIR}/phase-01`
 2. **Staleness check**: If using a Phase 1 from a different date, compare the `git_commit` in that run's `run-manifest.json` against current `HEAD` of the target repo. If different, warn user and ask to confirm.
 3. Create output directory: `mkdir -p {RUN_DIR}/phase-02`
-4. Read `~/.claude/skills/audit-repo/phases/02-interpretation.md` for agent prompts
+4. Read `phases/02-interpretation.md` for agent prompts
 5. Build `{SHARED CONTEXT BLOCK}` — replace `{INPUT_DIR}` in the template. Add `{TARGET_PATH}` so agents can verify against source. If any Phase 1 file is missing, omit it from the file list and add a note.
 6. Launch **3 general-purpose agents in parallel**
 7. Each agent:
@@ -209,7 +209,7 @@ or "stop" to end here.
    - `PHASE1_DIR`: Phase 1 output location
    - `PHASE2_DIR`: Phase 2 output location (same run, or from source date)
 2. Create output directory: `mkdir -p {RUN_DIR}/phase-03`
-3. Read `~/.claude/skills/audit-repo/phases/03-synthesis.md` for agent prompt
+3. Read `phases/03-synthesis.md` for agent prompt
 4. Launch **1 general-purpose agent**
    - Reads ALL Phase 1 + Phase 2 outputs
    - Writes synthesis+plan to `{RUN_DIR}/phase-03/01-synthesis-plan.md`
@@ -280,8 +280,8 @@ faudit/runs/repo/
 
 ## Pipeline Definition
 
-Full pipeline configuration: `~/.claude/skills/audit-repo/pipeline.md`
-Phase 1 details: `~/.claude/skills/audit-repo/phases/01-discovery.md`
-Phase 2 details: `~/.claude/skills/audit-repo/phases/02-interpretation.md`
-Phase 3 details: `~/.claude/skills/audit-repo/phases/03-synthesis.md`
-Output format: `~/.claude/skills/audit-repo/templates/findings-format.md`
+Full pipeline configuration: `pipeline.md`
+Phase 1 details: `phases/01-discovery.md`
+Phase 2 details: `phases/02-interpretation.md`
+Phase 3 details: `phases/03-synthesis.md`
+Output format: `templates/findings-format.md`

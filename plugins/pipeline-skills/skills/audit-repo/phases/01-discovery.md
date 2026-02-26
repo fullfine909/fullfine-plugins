@@ -74,7 +74,7 @@ Analyze the ENTIRE repository. Start from the root and work inward.
 
 ## Output Format
 
-Use the findings format from: ~/.claude/skills/audit-repo/templates/findings-format.md
+Use the findings format from: templates/findings-format.md
 
 Title: "Project Structure & Architecture — Repository Overview"
 
@@ -145,7 +145,7 @@ Sample source code broadly across the repository. Prioritize core business logic
 
 ## Output Format
 
-Use the findings format from: ~/.claude/skills/audit-repo/templates/findings-format.md
+Use the findings format from: templates/findings-format.md
 
 Title: "Code Quality & Patterns — Implementation Review"
 
@@ -217,7 +217,7 @@ Analyze all dependency files, build configs, CI/CD pipelines, and deployment con
 
 ## Output Format
 
-Use the findings format from: ~/.claude/skills/audit-repo/templates/findings-format.md
+Use the findings format from: templates/findings-format.md
 
 Title: "Dependencies & Build System — Infrastructure Review"
 
@@ -291,7 +291,7 @@ Analyze test directories, test configuration, CI quality checks, and linting/for
 
 ## Output Format
 
-Use the findings format from: ~/.claude/skills/audit-repo/templates/findings-format.md
+Use the findings format from: templates/findings-format.md
 
 Title: "Testing & Quality Gates — Quality Infrastructure Review"
 
@@ -365,7 +365,7 @@ Analyze all documentation: README, docs directories, code comments, API docs, an
 
 ## Output Format
 
-Use the findings format from: ~/.claude/skills/audit-repo/templates/findings-format.md
+Use the findings format from: templates/findings-format.md
 
 Title: "Documentation & Onboarding — Developer Experience Review"
 

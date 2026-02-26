@@ -1,0 +1,14 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "fullfine-plugins",
+  "description": "Personal Claude Code plugin marketplace",
+  "owner": { "name": "fullfine" },
+  "plugins": [
+    {
+      "name": "pipeline-skills",
+      "description": "Multi-phase agent pipeline skills (/solve, /audit-repo) with shared exploration agents",
+      "source": "./plugins/pipeline-skills",
+      "category": "development"
+    }
+  ]
+}

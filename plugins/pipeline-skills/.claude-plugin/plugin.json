@@ -1,0 +1,5 @@
+{
+  "name": "pipeline-skills",
+  "description": "Multi-phase agent pipeline skills (/solve, /audit-repo) with shared exploration agents",
+  "author": { "name": "fullfine" }
+}

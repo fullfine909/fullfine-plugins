@@ -1,14 +1,16 @@
-# claude-skills
+# fullfine-plugins
 
-Shared skills, agents, and pipelines for [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
+Personal Claude Code plugin marketplace.
 
 ## What's Included
 
-**Skills** (invoke with `/skill-name` in Claude Code):
-- `/solve` — Multi-phase solution planning: discovery (3 agents) → solution design (2 agents) → synthesis (1 agent)
-- `/audit-repo` — Codebase audit pipeline: discovery → interpretation → synthesis
+**Plugin: `pipeline-skills`**
 
-**Agents** (used as `subagent_type` by skills):
+Skills (invoke with `/skill-name` in Claude Code):
+- `/solve` — Multi-phase solution planning: discovery (3 agents) → solution design (2 agents) → synthesis (1 agent)
+- `/audit-repo` — Codebase audit pipeline: discovery (5 agents) → interpretation (3 agents) → synthesis (1 agent)
+
+Agents (used as `subagent_type` by skills):
 - `code-explorer` — Codebase structure and architecture exploration
 - `pattern-analyzer` — Code patterns and conventions analysis
 - `dependency-mapper` — Dependencies and constraints mapping
@@ -18,27 +20,26 @@ Shared skills, agents, and pipelines for [Claude Code](https://docs.anthropic.co
 
 ## Install
 
-```bash
-git clone git@gitlab.com:fullfine_utils/claude-skills.git
-cd claude-skills
-./install.sh
+In Claude Code, run `/plugins` and add the marketplace:
+
+```
+fullfine/fullfine-plugins
 ```
 
-This creates symlinks into `~/.claude/` (agents as individual file links, skills as directory links). Existing real files are never overwritten.
+Then enable `pipeline-skills`.
 
-To install to a custom location:
+## Update
 
-```bash
-./install.sh /path/to/target
-```
-
-## Sync (maintainer only)
-
-Copy files from the SSOT (dotfiles) into this repo:
+Run `/plugins` and refresh the marketplace. Or:
 
 ```bash
-./sync.sh                    # default: ~/.dots/claude
-./sync.sh /path/to/source    # custom source
+git -C ~/.claude/plugins/marketplaces/fullfine-plugins pull
 ```
 
-Then commit and push.
+## Uninstall
+
+Disable `pipeline-skills` in `/plugins`, or remove the marketplace entirely:
+
+```bash
+rm -rf ~/.claude/plugins/marketplaces/fullfine-plugins
+```

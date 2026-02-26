@@ -119,6 +119,6 @@ Research and analysis only, no code changes.
 ## Execution Notes
 
 1. Launch 1 agent (sequential -- needs all Phase 1 + Phase 2 outputs)
-2. Agent uses shared `synthesizer` definition from `~/.claude/agents/`
+2. Agent uses shared `synthesizer` definition (registered by plugin)
 3. After completion, the pipeline run is done
 4. Update `agents.phase3` to 1 in run-manifest.json

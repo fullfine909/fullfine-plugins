@@ -75,7 +75,7 @@ Design a concrete implementation plan that solves the user's request.
 ## Output
 
 Write to: {OUTPUT_DIR}/01-solution-plan.md
-Use the format from: ~/.claude/skills/solve/templates/solution-format.md
+Use the format from: templates/solution-format.md
 
 Research and analysis only, no code changes.
 ```
@@ -151,6 +151,6 @@ Research and analysis only, no code changes.
 ## Execution Notes
 
 1. Launch BOTH agents in a **single message** (parallel Task calls)
-2. Each agent uses its shared definition from `~/.claude/agents/` as base instructions
+2. Each agent uses its shared definition (registered by plugin) as base instructions
 3. After both complete, **verify** both output files exist
 4. **STOP** for user review before Phase 3

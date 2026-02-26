@@ -85,8 +85,8 @@ Write `{RUN_DIR}/run-manifest.json`:
 
 1. Create output directory: `mkdir -p {RUN_DIR}/phase-01`
 2. Set `OUTPUT_DIR={RUN_DIR}/phase-01`
-3. Read `~/.claude/skills/solve/phases/01-discovery.md` for agent definitions
-4. Read `~/.claude/skills/solve/templates/discovery-format.md` for output format
+3. Read `phases/01-discovery.md` for agent definitions
+4. Read `templates/discovery-format.md` for output format
 5. Substitute `{REQUEST}` and `{OUTPUT_DIR}` into each agent's prompt
 6. Launch **3 agents in parallel** (single message, multiple Task calls):
    - Agent 1: `code-explorer` -- writes to `{OUTPUT_DIR}/01-code-structure.md`
@@ -124,7 +124,7 @@ or "stop" to end here.
 1. Set `INPUT_DIR={RUN_DIR}/phase-01`
 2. Set `OUTPUT_DIR={RUN_DIR}/phase-02`
 3. Create output directory: `mkdir -p {RUN_DIR}/phase-02`
-4. Read `~/.claude/skills/solve/phases/02-solution.md` for agent definitions
+4. Read `phases/02-solution.md` for agent definitions
 5. Build `{SHARED CONTEXT BLOCK}` from `phases/02-solution.md`:
    - Insert `{REQUEST}`
    - Insert Phase 1 file list (from `00-consolidated.md`)
@@ -163,7 +163,7 @@ Only reached if user says "continue" after Phase 2.
 2. Set `PHASE2_DIR={RUN_DIR}/phase-02`
 3. Set `OUTPUT_DIR={RUN_DIR}/phase-03`
 4. Create output directory: `mkdir -p {RUN_DIR}/phase-03`
-5. Read `~/.claude/skills/solve/phases/03-synthesis.md` for agent definition
+5. Read `phases/03-synthesis.md` for agent definition
 6. Substitute all variables: `{REQUEST}`, `{PHASE1_DIR}`, `{PHASE2_DIR}`, `{OUTPUT_DIR}`
 7. Launch **1 `synthesizer` agent**
    - Reads ALL Phase 1 + Phase 2 outputs
@@ -213,10 +213,10 @@ Read and display the Executive Summary from the final deliverable.
 
 ## References
 
-Full pipeline configuration: `~/.claude/skills/solve/pipeline.md`
-Phase 1 details: `~/.claude/skills/solve/phases/01-discovery.md`
-Phase 2 details: `~/.claude/skills/solve/phases/02-solution.md`
-Phase 3 details: `~/.claude/skills/solve/phases/03-synthesis.md`
-Shared agent definitions: `~/.claude/agents/`
-Discovery output format: `~/.claude/skills/solve/templates/discovery-format.md`
-Solution output format: `~/.claude/skills/solve/templates/solution-format.md`
+Full pipeline configuration: `pipeline.md`
+Phase 1 details: `phases/01-discovery.md`
+Phase 2 details: `phases/02-solution.md`
+Phase 3 details: `phases/03-synthesis.md`
+Shared agent definitions: plugin-registered (code-explorer, pattern-analyzer, dependency-mapper, solution-architect, risk-analyst, synthesizer)
+Discovery output format: `templates/discovery-format.md`
+Solution output format: `templates/solution-format.md`

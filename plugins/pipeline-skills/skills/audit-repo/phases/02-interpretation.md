@@ -104,7 +104,7 @@ Other agents are simultaneously analyzing: Domain+Quality (Agent 2) and Document
 
 Write to: {OUTPUT_DIR}/01-architecture.md
 
-Use the findings format from: ~/.claude/skills/audit-repo/templates/findings-format.md
+Use the findings format from: templates/findings-format.md
 
 Structure your output as:
 1. **Summary** — Overall architectural and implementation health (1 paragraph)
@@ -163,7 +163,7 @@ Other agents are simultaneously analyzing: Architecture+Implementation (Agent 1)
 
 Write to: {OUTPUT_DIR}/02-domain-quality.md
 
-Use the findings format from: ~/.claude/skills/audit-repo/templates/findings-format.md
+Use the findings format from: templates/findings-format.md
 
 Structure your output as:
 1. **Summary** — Domain and quality health (1 paragraph)
@@ -222,7 +222,7 @@ Other agents are simultaneously analyzing: Architecture+Implementation (Agent 1)
 
 Write to: {OUTPUT_DIR}/03-docs-dx.md
 
-Use the findings format from: ~/.claude/skills/audit-repo/templates/findings-format.md
+Use the findings format from: templates/findings-format.md
 
 Structure your output as:
 1. **Summary** — Documentation and DX health (1 paragraph)

@@ -50,7 +50,7 @@ The orchestrator script. Claude follows this step-by-step. Handles:
 - Final report
 
 **Location**:
-- Global skill: `~/.claude/skills/{name}/SKILL.md` (available everywhere)
+- Plugin skill: `plugins/<plugin>/skills/{name}/SKILL.md` (available when plugin is enabled)
 - Project command: `.claude/commands/{name}.md` (project-specific)
 
 ### Pipeline Definition (`pipeline.md`)
@@ -100,7 +100,7 @@ The default template uses V/D/S/R/P/O categories:
 - **P**ass — correct and consistent (what NOT to change)
 - **O**bservations — neutral context
 
-Located at: `~/.dots/claude/skills/audit-repo/templates/findings-format.md`
+Located at: `skills/audit-repo/templates/findings-format.md` (relative to plugin root)
 
 ## Variable Contract
 
@@ -216,17 +216,16 @@ The output template ensures consistent structure so downstream agents can parse 
 ```
 # Entry point (pick one)
 .claude/commands/{name}.md                    # project-local
-~/.dots/claude/skills/{name}/SKILL.md         # global
+plugins/<plugin>/skills/{name}/SKILL.md       # plugin skill
 
-# Pipeline definition + phases
-faudit/pipelines/{name}/pipeline.md
-faudit/pipelines/{name}/phases/01-discovery.md
-faudit/pipelines/{name}/phases/02-*.md        # optional
-faudit/pipelines/{name}/phases/03-*.md        # optional
+# Phase definitions (colocated with skill)
+plugins/<plugin>/skills/{name}/phases/01-discovery.md
+plugins/<plugin>/skills/{name}/phases/02-*.md        # optional
+plugins/<plugin>/skills/{name}/phases/03-*.md        # optional
 
 # Output template (reuse existing or create new)
-faudit/pipelines/{name}/templates/format.md   # pipeline-specific
-# OR reuse: ~/.dots/claude/skills/audit-repo/templates/findings-format.md
+plugins/<plugin>/skills/{name}/templates/format.md   # pipeline-specific
+# OR reuse: skills/audit-repo/templates/findings-format.md
 ```
 
 ### Step 1: Define Scope and Phases
@@ -282,7 +281,7 @@ The entry point is the most mechanical part — it's mostly boilerplate for:
 
 **For project-local**: Place entry point at `.claude/commands/{name}.md` — invoked as `/{name}`.
 
-**For global**: Place at `~/.dots/claude/skills/{name}/SKILL.md`, then run `~/.dots/scripts/create_links.sh` to symlink into `~/.claude/skills/`.
+**For plugin**: Place at `plugins/<plugin>/skills/{name}/SKILL.md` inside a Claude Code plugin. Install via `/plugins`.
 
 ## Design Levers
 
@@ -301,12 +300,12 @@ The entry point is the most mechanical part — it's mostly boilerplate for:
 | Pipeline | Command | Scope | Source | Entry Point |
 |---|---|---|---|---|
 | `audit` | `/audit` | FUXI L5/L7 music modules | `faudit/pipelines/audit/` | `.claude/commands/audit.md` |
-| `repo` | `/audit-repo` | Any repository (agnostic) | `~/.dots/claude/skills/audit-repo/` | `~/.dots/claude/skills/audit-repo/SKILL.md` |
-| `solve` | `/solve` | Any repository (goal-directed) | `~/.dots/claude/skills/solve/` | `~/.dots/claude/skills/solve/SKILL.md` |
+| `repo` | `/audit-repo` | Any repository (agnostic) | `skills/audit-repo/` | `skills/audit-repo/SKILL.md` |
+| `solve` | `/solve` | Any repository (goal-directed) | `skills/solve/` | `skills/solve/SKILL.md` |
 
 ## Shared Agents
 
-Agent definitions live in `~/.dots/claude/agents/` (symlinked to `~/.claude/agents/` by `create_links.sh`). They serve dual purpose:
+Agent definitions live in `plugins/<plugin>/agents/` inside a Claude Code plugin. They serve dual purpose:
 
 1. **Pipeline building blocks** — referenced by `subagent_type` name in phase files. The agent definition provides the base role (system prompt), and the pipeline provides the specific context ({REQUEST}, output paths, format references).
 2. **Standalone agents** — invokable directly via `Task(subagent_type="agent-name", prompt="...")` or `claude --agent agent-name`.
@@ -356,9 +355,9 @@ The orchestrator calls `Task(subagent_type="code-explorer", prompt=<substituted 
 
 | Resource | Location | Used by |
 |---|---|---|
-| Agent definitions | `~/.dots/claude/agents/*.md` | All pipelines, standalone use |
-| Findings format (V/D/S/R/P/O) | `~/.dots/claude/skills/audit-repo/templates/findings-format.md` | audit-repo pipeline |
-| Discovery format | `~/.dots/claude/skills/solve/templates/discovery-format.md` | solve pipeline |
-| Solution format | `~/.dots/claude/skills/solve/templates/solution-format.md` | solve pipeline |
+| Agent definitions | `agents/*.md` (plugin root) | All pipelines, standalone use |
+| Findings format (V/D/S/R/P/O) | `skills/audit-repo/templates/findings-format.md` | audit-repo pipeline |
+| Discovery format | `skills/solve/templates/discovery-format.md` | solve pipeline |
+| Solution format | `skills/solve/templates/solution-format.md` | solve pipeline |
 | Run output | `faudit/runs/{pipeline}/{date}/` | All pipelines |
 | Manifest schema | Defined in each pipeline's `pipeline.md` | All pipelines |

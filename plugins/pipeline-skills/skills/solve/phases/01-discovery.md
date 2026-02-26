@@ -44,7 +44,7 @@ Start from the project root. Read README.md and top-level structure first, then 
 ## Output
 
 Write your findings to: {OUTPUT_DIR}/01-code-structure.md
-Use the format from: ~/.claude/skills/solve/templates/discovery-format.md
+Use the format from: templates/discovery-format.md
 
 Research and analysis only, no code changes.
 ```
@@ -78,7 +78,7 @@ Focus on patterns in the areas of the codebase that would be touched by the requ
 ## Output
 
 Write your findings to: {OUTPUT_DIR}/02-patterns.md
-Use the format from: ~/.claude/skills/solve/templates/discovery-format.md
+Use the format from: templates/discovery-format.md
 
 Research and analysis only, no code changes.
 ```
@@ -113,7 +113,7 @@ Start from the code areas relevant to the request and trace dependencies outward
 ## Output
 
 Write your findings to: {OUTPUT_DIR}/03-dependencies.md
-Use the format from: ~/.claude/skills/solve/templates/discovery-format.md
+Use the format from: templates/discovery-format.md
 
 Research and analysis only, no code changes.
 ```
@@ -123,7 +123,7 @@ Research and analysis only, no code changes.
 ## Execution Notes
 
 1. Launch ALL 3 agents in a **single message** (parallel Task calls)
-2. Each agent uses its shared definition from `~/.claude/agents/` as base instructions
+2. Each agent uses its shared definition (registered by plugin) as base instructions
 3. Each writes to `{OUTPUT_DIR}/{NN-name}.md`
 4. After all 3 complete, **verify** all expected files exist
 5. **Produce `00-consolidated.md`** (format below)

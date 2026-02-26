@@ -74,7 +74,8 @@ Design a concrete implementation plan that solves the user's request.
 
 ## Output
 
-Write to: {OUTPUT_DIR}/01-solution-plan.md
+You MUST use the Write tool to save your complete output to: {OUTPUT_DIR}/01-solution-plan.md
+Do NOT return your findings inline — the file must exist on disk when you finish.
 Use the format from: templates/solution-format.md
 
 Research and analysis only, no code changes.
@@ -106,7 +107,8 @@ Analyze the risks and testing implications of making changes to solve the user's
 
 ## Output
 
-Write to: {OUTPUT_DIR}/02-risk-analysis.md
+You MUST use the Write tool to save your complete output to: {OUTPUT_DIR}/02-risk-analysis.md
+Do NOT return your findings inline — the file must exist on disk when you finish.
 
 ```markdown
 # Risk & Testing Analysis

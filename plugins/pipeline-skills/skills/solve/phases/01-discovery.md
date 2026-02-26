@@ -43,7 +43,8 @@ Start from the project root. Read README.md and top-level structure first, then 
 
 ## Output
 
-Write your findings to: {OUTPUT_DIR}/01-code-structure.md
+You MUST use the Write tool to save your complete output to: {OUTPUT_DIR}/01-code-structure.md
+Do NOT return your findings inline — the file must exist on disk when you finish.
 Use the format from: templates/discovery-format.md
 
 Research and analysis only, no code changes.
@@ -77,7 +78,8 @@ Focus on patterns in the areas of the codebase that would be touched by the requ
 
 ## Output
 
-Write your findings to: {OUTPUT_DIR}/02-patterns.md
+You MUST use the Write tool to save your complete output to: {OUTPUT_DIR}/02-patterns.md
+Do NOT return your findings inline — the file must exist on disk when you finish.
 Use the format from: templates/discovery-format.md
 
 Research and analysis only, no code changes.
@@ -112,7 +114,8 @@ Start from the code areas relevant to the request and trace dependencies outward
 
 ## Output
 
-Write your findings to: {OUTPUT_DIR}/03-dependencies.md
+You MUST use the Write tool to save your complete output to: {OUTPUT_DIR}/03-dependencies.md
+Do NOT return your findings inline — the file must exist on disk when you finish.
 Use the format from: templates/discovery-format.md
 
 Research and analysis only, no code changes.

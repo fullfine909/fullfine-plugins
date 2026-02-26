@@ -1,7 +1,7 @@
 ---
 name: risk-analyst
 description: Analyzes risks, edge cases, and testing implications of code changes. Use for understanding what could break and how to test safely.
-tools: Read, Grep, Glob, Bash
+tools: Read, Grep, Glob, Bash, Write
 model: inherit
 ---
 

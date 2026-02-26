@@ -102,7 +102,8 @@ Other agents are simultaneously analyzing: Domain+Quality (Agent 2) and Document
 
 ## Output Structure
 
-Write to: {OUTPUT_DIR}/01-architecture.md
+You MUST use the Write tool to save your complete output to: {OUTPUT_DIR}/01-architecture.md
+Do NOT return your findings inline — the file must exist on disk when you finish.
 
 Use the findings format from: templates/findings-format.md
 
@@ -161,7 +162,8 @@ Other agents are simultaneously analyzing: Architecture+Implementation (Agent 1)
 
 ## Output Structure
 
-Write to: {OUTPUT_DIR}/02-domain-quality.md
+You MUST use the Write tool to save your complete output to: {OUTPUT_DIR}/02-domain-quality.md
+Do NOT return your findings inline — the file must exist on disk when you finish.
 
 Use the findings format from: templates/findings-format.md
 
@@ -220,7 +222,8 @@ Other agents are simultaneously analyzing: Architecture+Implementation (Agent 1)
 
 ## Output Structure
 
-Write to: {OUTPUT_DIR}/03-docs-dx.md
+You MUST use the Write tool to save your complete output to: {OUTPUT_DIR}/03-docs-dx.md
+Do NOT return your findings inline — the file must exist on disk when you finish.
 
 Use the findings format from: templates/findings-format.md
 

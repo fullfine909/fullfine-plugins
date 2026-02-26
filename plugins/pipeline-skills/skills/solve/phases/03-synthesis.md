@@ -57,7 +57,8 @@ If any input file is missing, note its absence and work with available data.
 
 ## Output
 
-Write to: {OUTPUT_DIR}/01-implementation-plan.md
+You MUST use the Write tool to save your complete output to: {OUTPUT_DIR}/01-implementation-plan.md
+Do NOT return your findings inline — the file must exist on disk when you finish.
 
 ```markdown
 # Implementation Plan: {REQUEST}

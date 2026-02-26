@@ -1,7 +1,7 @@
 ---
 name: code-explorer
 description: Explores codebase structure, architecture, and relevant code paths. Use for understanding how code is organized, finding implementation details, and mapping entry points.
-tools: Read, Grep, Glob, Bash
+tools: Read, Grep, Glob, Bash, Write
 model: inherit
 ---
 

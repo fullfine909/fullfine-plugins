@@ -1,7 +1,7 @@
 ---
 name: dependency-mapper
 description: Maps dependencies, constraints, and integration points in a codebase. Use for understanding what code depends on, what depends on it, and what constraints a change must respect.
-tools: Read, Grep, Glob, Bash
+tools: Read, Grep, Glob, Bash, Write
 model: inherit
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: pattern-analyzer
 description: Analyzes code patterns, conventions, and implementation styles across a codebase. Use for understanding how similar things are done and what conventions to follow.
-tools: Read, Grep, Glob, Bash
+tools: Read, Grep, Glob, Bash, Write
 model: inherit
 ---
 

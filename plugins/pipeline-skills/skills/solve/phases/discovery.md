@@ -1,29 +1,28 @@
 # Phase 1: Discovery
 
-**Type**: Goal-directed codebase exploration
-**Agents**: 3 (code-explorer, pattern-analyzer, dependency-mapper) -- all parallel
-**Output**: `{RUN_DIR}/phase-01/` (3 discovery files + consolidated summary)
+## Preparation
+
+Before spawning agents, read these template files and substitute their full content into the agent prompts below. Subagents cannot access skill directory paths — the content must be inlined directly into each prompt.
+
+| Placeholder | Template File |
+|-------------|---------------|
+| `{TEMPLATE:discovery-output}` | `templates/discovery-output.md` (in this skill directory) |
+| `{TEMPLATE:consolidation}` | `templates/consolidation.md` (in this skill directory) |
 
 ---
 
-## Setup
+Launch **3 agents in parallel** (single message, multiple Agent calls). Wait for all 3 to complete.
 
-Create the output directory:
-
-```bash
-mkdir -p {RUN_DIR}/phase-01
-```
-
-Set: `OUTPUT_DIR={RUN_DIR}/phase-01`
+After all finish: verify all 3 output files exist, then produce `{OUTPUT_DIR}/00-consolidated.md`.
 
 ---
 
 ## Agent 1: Code Explorer
 
-- **Subagent type**: `code-explorer`
+- **Subagent type**: `pipeline-skills:code-explorer`
 - **Output file**: `{OUTPUT_DIR}/01-code-structure.md`
 
-### Prompt
+**Prompt**:
 
 ```
 The user wants to: {REQUEST}
@@ -44,7 +43,17 @@ Start from the project root. Read README.md and top-level structure first, then 
 ## Output
 
 Write your findings to: {OUTPUT_DIR}/01-code-structure.md
-Use the format from: templates/discovery-format.md
+
+Use this output format:
+
+{TEMPLATE:discovery-output}
+
+Set these template values:
+- AGENT_AREA: "Code Structure"
+- N: 1
+- area_description: "Code structure and architecture"
+
+---
 
 Research and analysis only, no code changes.
 ```
@@ -53,10 +62,10 @@ Research and analysis only, no code changes.
 
 ## Agent 2: Pattern Analyzer
 
-- **Subagent type**: `pattern-analyzer`
+- **Subagent type**: `pipeline-skills:pattern-analyzer`
 - **Output file**: `{OUTPUT_DIR}/02-patterns.md`
 
-### Prompt
+**Prompt**:
 
 ```
 The user wants to: {REQUEST}
@@ -78,7 +87,17 @@ Focus on patterns in the areas of the codebase that would be touched by the requ
 ## Output
 
 Write your findings to: {OUTPUT_DIR}/02-patterns.md
-Use the format from: templates/discovery-format.md
+
+Use this output format:
+
+{TEMPLATE:discovery-output}
+
+Set these template values:
+- AGENT_AREA: "Patterns & Conventions"
+- N: 2
+- area_description: "Patterns, conventions, and reusable abstractions"
+
+---
 
 Research and analysis only, no code changes.
 ```
@@ -87,10 +106,10 @@ Research and analysis only, no code changes.
 
 ## Agent 3: Dependency Mapper
 
-- **Subagent type**: `dependency-mapper`
+- **Subagent type**: `pipeline-skills:dependency-mapper`
 - **Output file**: `{OUTPUT_DIR}/03-dependencies.md`
 
-### Prompt
+**Prompt**:
 
 ```
 The user wants to: {REQUEST}
@@ -113,49 +132,48 @@ Start from the code areas relevant to the request and trace dependencies outward
 ## Output
 
 Write your findings to: {OUTPUT_DIR}/03-dependencies.md
-Use the format from: templates/discovery-format.md
+
+Use this output format:
+
+{TEMPLATE:discovery-output}
+
+Set these template values:
+- AGENT_AREA: "Dependencies & Constraints"
+- N: 3
+- area_description: "Dependencies, constraints, and integration points"
+
+---
 
 Research and analysis only, no code changes.
 ```
 
 ---
 
-## Execution Notes
+## Consolidation
 
-1. Launch ALL 3 agents in a **single message** (parallel Task calls)
-2. Each agent uses its shared definition (registered by plugin) as base instructions
-3. Each writes to `{OUTPUT_DIR}/{NN-name}.md`
-4. After all 3 complete, **verify** all expected files exist
-5. **Produce `00-consolidated.md`** (format below)
+After all 3 agents finish, read all 3 discovery files and produce `{OUTPUT_DIR}/00-consolidated.md`.
 
----
+Use this format:
 
-## Consolidation Format
+{TEMPLATE:consolidation}
 
-After all agents finish, read all 3 discovery files and produce `{OUTPUT_DIR}/00-consolidated.md`:
+### After Phase 1
 
-```markdown
-# Phase 1: Discovery Summary
+Report to user:
 
-## Request
-{REQUEST}
-
-## Agent Findings
-
-| # | Agent | File | Key Findings |
-|---|-------|------|-------------|
-| 1 | code-explorer | 01-code-structure.md | {1-2 sentence summary} |
-| 2 | pattern-analyzer | 02-patterns.md | {1-2 sentence summary} |
-| 3 | dependency-mapper | 03-dependencies.md | {1-2 sentence summary} |
-
-## Cross-Agent Connections
-{Things that multiple agents found or that create dependencies between areas}
-
-## Constraints Identified
-{Hard constraints any solution must respect: existing tests, API contracts,
-type signatures, conventions, etc.}
-
-## Preliminary Assessment
-{1 paragraph: Is this request straightforward or complex? What's the main
-challenge? What approach looks most promising based on discovery?}
 ```
+Phase 1 complete. 3 discovery agents finished.
+
+| # | Agent              | File                  | Key Findings              |
+|---|--------------------|-----------------------|---------------------------|
+| 1 | code-explorer      | 01-code-structure.md  | {1-2 sentence summary}    |
+| 2 | pattern-analyzer   | 02-patterns.md        | {1-2 sentence summary}    |
+| 3 | dependency-mapper  | 03-dependencies.md    | {1-2 sentence summary}    |
+
+Files written to: {RUN_DIR}/phase-01/
+
+Review the findings, then say "continue" to proceed to Phase 2 (solution design),
+or "stop" to end here.
+```
+
+**STOP and wait for user instruction.**

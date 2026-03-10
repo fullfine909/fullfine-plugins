@@ -1,25 +1,25 @@
 # Phase 2: Solution Design
 
-**Type**: Implementation planning based on discovery findings
-**Agents**: 2 (solution-architect, risk-analyst) -- parallel
-**Input**: `{RUN_DIR}/phase-01/` (consolidated + 3 discovery files)
-**Output**: `{RUN_DIR}/phase-02/`
+## Preparation
+
+Before spawning agents, read these template files and substitute their full content into the agent prompts below. Subagents cannot access skill directory paths — the content must be inlined directly into each prompt.
+
+| Placeholder | Template File |
+|-------------|---------------|
+| `{TEMPLATE:solution-plan}` | `templates/solution-plan.md` (in this skill directory) |
+| `{TEMPLATE:risk-analysis}` | `templates/risk-analysis.md` (in this skill directory) |
+
+Also, replace every `{SHARED CONTEXT BLOCK}` in the agent prompts below with the full preamble defined in the "Shared Context Block" section.
 
 ---
 
-## Setup
-
-Create output directory: `mkdir -p {RUN_DIR}/phase-02`
-
-Set:
-- `INPUT_DIR={RUN_DIR}/phase-01`
-- `OUTPUT_DIR={RUN_DIR}/phase-02`
+Launch **2 agents in parallel**. Wait for both to complete. Verify both output files exist.
 
 ---
 
 ## Shared Context Block
 
-Every Phase 2 agent receives this preamble (replace variables at runtime):
+Every Phase 2 agent receives this preamble. Replace `{SHARED CONTEXT BLOCK}` in each agent prompt with this content:
 
 ```
 ## Context
@@ -52,10 +52,10 @@ You may also read source code files directly to verify details or investigate th
 
 ## Agent 1: Solution Architect
 
-- **Subagent type**: `solution-architect`
+- **Subagent type**: `pipeline-skills:solution-architect`
 - **Output file**: `{OUTPUT_DIR}/01-solution-plan.md`
 
-### Prompt
+**Prompt**:
 
 ```
 {SHARED CONTEXT BLOCK}
@@ -75,7 +75,12 @@ Design a concrete implementation plan that solves the user's request.
 ## Output
 
 Write to: {OUTPUT_DIR}/01-solution-plan.md
-Use the format from: templates/solution-format.md
+
+Use this output format:
+
+{TEMPLATE:solution-plan}
+
+---
 
 Research and analysis only, no code changes.
 ```
@@ -84,10 +89,10 @@ Research and analysis only, no code changes.
 
 ## Agent 2: Risk Analyst
 
-- **Subagent type**: `risk-analyst`
+- **Subagent type**: `pipeline-skills:risk-analyst`
 - **Output file**: `{OUTPUT_DIR}/02-risk-analysis.md`
 
-### Prompt
+**Prompt**:
 
 ```
 {SHARED CONTEXT BLOCK}
@@ -108,49 +113,30 @@ Analyze the risks and testing implications of making changes to solve the user's
 
 Write to: {OUTPUT_DIR}/02-risk-analysis.md
 
-```markdown
-# Risk & Testing Analysis
+Use this output format:
 
-## Request
-{REQUEST}
+{TEMPLATE:risk-analysis}
 
-## Risk Assessment
-
-| Risk | Likelihood | Impact | Mitigation |
-|------|-----------|--------|------------|
-
-## What Could Break
-{Detailed analysis of existing functionality at risk}
-
-## Edge Cases
-{Non-obvious conditions the solution must handle}
-
-## Migration Concerns
-{If applicable: API changes, data migration, backward compatibility}
-
-## Testing Strategy
-
-### Existing Tests to Update
-{List with file paths}
-
-### New Tests Needed
-{List with descriptions}
-
-### Verification Steps
-{How to confirm the solution works end-to-end}
-
-## Rollback Plan
-{Steps to safely revert if needed}
-```
+---
 
 Research and analysis only, no code changes.
 ```
 
 ---
 
-## Execution Notes
+## After Phase 2
 
-1. Launch BOTH agents in a **single message** (parallel Task calls)
-2. Each agent uses its shared definition (registered by plugin) as base instructions
-3. After both complete, **verify** both output files exist
-4. **STOP** for user review before Phase 3
+Read the executive summary and task list from `01-solution-plan.md`. Report to user:
+
+```
+Phase 2 complete. Solution plan and risk analysis written to: {RUN_DIR}/phase-02/
+
+{Display the Executive Summary section from 01-solution-plan.md}
+
+{Display the Task List section from 01-solution-plan.md}
+
+This is a usable plan. Say "continue" for Phase 3 (deeper synthesis and validation),
+or "done" to finish here.
+```
+
+**STOP and wait for user instruction.**

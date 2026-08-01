@@ -9,6 +9,12 @@
       "description": "Multi-phase agent pipeline skills (/solve, /audit-repo) with shared exploration agents",
       "source": "./plugins/pipeline-skills",
       "category": "development"
+    },
+    {
+      "name": "design-skills",
+      "description": "Design and image-generation skills (/poster-prompt) for text-heavy posters and infographics",
+      "source": "./plugins/design-skills",
+      "category": "design"
     }
   ]
 }

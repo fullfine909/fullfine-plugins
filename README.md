@@ -18,6 +18,17 @@ Agents (used as `subagent_type` by skills):
 - `risk-analyst` — Risk assessment and testing strategy
 - `synthesizer` — Multi-agent findings consolidation
 
+**Plugin: `design-skills`**
+
+Skills:
+- `/poster-prompt` — Prompts for text-heavy posters and infographics: model routing
+  (GPT Image 2 / Ideogram / Nano Banana / Recraft vector), the 5-to-9 card ceiling,
+  exact-string quoting, and which copy must be retyped rather than generated.
+
+Renders through the `poster` CLI in `~/Dev/tools/poster` (symlinked into
+dj-platform, fullfine-services and pulse as `scripts/poster`). The skill writes the
+prompt; the CLI turns it into a file.
+
 ## Install
 
 In Claude Code, run `/plugins` and add the marketplace:
@@ -26,7 +37,7 @@ In Claude Code, run `/plugins` and add the marketplace:
 fullfine/fullfine-plugins
 ```
 
-Then enable `pipeline-skills`.
+Then enable `pipeline-skills`, `design-skills`, or both.
 
 ## Update
 

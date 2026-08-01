@@ -61,25 +61,29 @@ one poster tested here, GPT Image 2 rendered all twelve strings verbatim.
 
 ## Rendering it
 
-The prompt is this skill's deliverable. Turning it into a file is the `poster` CLI
-(`~/Dev/tools/poster`, symlinked into dj-platform, fullfine-services and pulse as
-`scripts/poster`). One OpenRouter key reaches every model in the table above except
-Ideogram, which has no OpenRouter endpoint and stays paste-it-yourself.
+The prompt is this skill's deliverable. Turning it into a file is the `imagegen` CLI
+(`~/Dev/tools/imagegen`, symlinked into dj-platform, fullfine-services and pulse as
+`scripts/imagegen`). It is a **generic** renderer — it knows models, aspect ratios and
+cost, and nothing about posters. All the poster judgement stays in this file.
+
+One OpenRouter key reaches every model in the table above except Ideogram, which has
+no OpenRouter endpoint and stays paste-it-yourself.
 
 ```bash
-just poster gen -f prompt.txt -a 3:4 -m text     # from a repo with the just lane
-python scripts/poster/cli.py gen "..." -a 3:4    # inline, from anywhere
-python scripts/poster/cli.py models              # what the key reaches right now
-python scripts/poster/cli.py check               # key and alias health, costs nothing
+just imagegen gen -f prompt.txt -a 3:4             # from a repo with the just lane
+python scripts/imagegen/cli.py gen "..." -a 3:4    # inline, from anywhere
+python scripts/imagegen/cli.py models              # what the key reaches right now
+python scripts/imagegen/cli.py check               # key and alias health, costs nothing
 ```
 
-Aliases map to the table above: `text` (GPT Image 2, the default), `pro` (Nano Banana
-Pro), `flash` (Gemini's cheaper tier), `vector` (Recraft SVG). Pass a prompt **file** to the `just`
-lane — arguments are whitespace-split there, so an inline quoted prompt loses everything
-after the first word.
+Aliases: `text` (GPT Image 2, the default), `pro` (Nano Banana Pro), `flash` (Gemini's
+cheaper tier), `vector` (Recraft SVG). Pass a prompt **file** to the `just` lane —
+arguments are whitespace-split there, so an inline quoted prompt loses everything after
+the first word.
 
 Every render writes a `<name>.prompt.txt` sidecar with the model, parameters and real
-cost. Budget roughly $0.02 to $0.15 per image depending on model.
+cost. Observed spend is $0.007 to $0.04 per image. There is no spend cap: `-n 10` bills
+ten. Re-rendering over an existing file aborts unless you pass `--force`.
 
 When handing over a prompt, say which alias to render it with and which strings still
 have to be retyped.

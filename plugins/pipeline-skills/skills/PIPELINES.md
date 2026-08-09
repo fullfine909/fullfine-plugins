@@ -214,19 +214,12 @@ The output template ensures consistent structure so downstream agents can parse 
 ### Minimum Files
 
 ```
-# Entry point (pick one)
+# Entry point — single self-contained file (preferred)
 .claude/commands/{name}.md                    # project-local
 plugins/<plugin>/skills/{name}/SKILL.md       # plugin skill
-
-# Phase definitions (colocated with skill)
-plugins/<plugin>/skills/{name}/phases/01-discovery.md
-plugins/<plugin>/skills/{name}/phases/02-*.md        # optional
-plugins/<plugin>/skills/{name}/phases/03-*.md        # optional
-
-# Output template (reuse existing or create new)
-plugins/<plugin>/skills/{name}/templates/format.md   # pipeline-specific
-# OR reuse: skills/audit-repo/templates/findings-format.md
 ```
+
+Agent prompts and output templates should be **inlined** in the entry point. Only use separate files for templates shared across multiple pipelines.
 
 ### Step 1: Define Scope and Phases
 
@@ -238,46 +231,22 @@ Decide what you're analyzing and how deep:
 | Standard audit | 2 | 5+3 | Medium | Module analysis with interpretation |
 | Deep audit | 3 | 5+3+1 | High | Full analysis with action plan |
 
-### Step 2: Write the Pipeline Definition
+### Step 2: Write the Skill File
 
-Copy from an existing `pipeline.md` and adapt:
-- Change `name`, `version`, `description`
-- Set `target_scope` to your paths
-- Set `standards` to your reference docs
-- Adjust agent counts per phase
-
-### Step 3: Write Phase Definitions
-
-For each phase, define agents with:
-
-1. **Subagent type** — `Explore` for read-only, `general-purpose` for analysis
-2. **Scope** — what paths to analyze, what to look for
-3. **Output file** — where to write (using `{OUTPUT_DIR}` variable)
-4. **Format** — which template to use
+Copy from an existing `SKILL.md` (e.g., `skills/solve/SKILL.md`) and adapt:
+- Change pipeline name, description, usage examples
+- Define agent prompts inline for each phase (subagent type, prompt, output format)
+- Adjust argument parsing if needed
 
 Tips for writing agent prompts:
 - Be specific about target paths
 - List exactly what to inventory/analyze
 - Specify the output file path with `{OUTPUT_DIR}` variable
-- Reference the template: "Use the findings format from: {path}"
+- Inline the output format template directly in the prompt
 - End with: "Research and analysis only, no code changes."
 - For Phase 2+: include `{SHARED CONTEXT BLOCK}` with file list from prior phase
 
-### Step 4: Write the Entry Point
-
-Copy from an existing entry point (`.claude/commands/audit.md` or `SKILL.md`) and adapt:
-- Change pipeline name and description
-- Update phase file paths
-- Update output directory names
-- Adjust argument parsing if needed
-
-The entry point is the most mechanical part — it's mostly boilerplate for:
-- Arg parsing, run dir setup, manifest
-- For each phase: read definition, substitute variables, launch agents, wait, consolidate
-- Checkpoints between phases
-- Final report
-
-### Step 5: Wire Up
+### Step 3: Wire Up
 
 **For project-local**: Place entry point at `.claude/commands/{name}.md` — invoked as `/{name}`.
 
@@ -357,7 +326,13 @@ The orchestrator calls `Task(subagent_type="code-explorer", prompt=<substituted 
 |---|---|---|
 | Agent definitions | `agents/*.md` (plugin root) | All pipelines, standalone use |
 | Findings format (V/D/S/R/P/O) | `skills/audit-repo/templates/findings-format.md` | audit-repo pipeline |
-| Discovery format | `skills/solve/templates/discovery-format.md` | solve pipeline |
-| Solution format | `skills/solve/templates/solution-format.md` | solve pipeline |
 | Run output | `faudit/runs/{pipeline}/{date}/` | All pipelines |
-| Manifest schema | Defined in each pipeline's `pipeline.md` | All pipelines |
+| Sync checker | `scripts/sync-check.sh` | Structural drift detection between canonical and override skills |
+
+## Inline vs External Convention
+
+**Preferred**: Inline all agent prompts and output templates directly in `SKILL.md`. This eliminates runtime file reads and makes each skill self-contained.
+
+**When to use external files**: Only for shared templates reused by multiple pipelines (e.g., `audit-repo/templates/findings-format.md`). If a template is used by only one skill, inline it.
+
+**Project overrides** (e.g., `/fuxi-solve` overriding `/solve`): Copy the full structure, replace agent types and domain-specific content. Use `scripts/sync-check.sh` to verify structural alignment with the canonical skill.

@@ -1,13 +1,4 @@
-# Solution Format Template
-
-Standard output format for solve pipeline solution design agents.
-
----
-
-## Template
-
-```markdown
-# Solution Plan: {Request}
+# Solution Plan: {REQUEST}
 
 **Phase**: 2 (Solution Design)
 **Date**: {date}
@@ -30,7 +21,6 @@ Standard output format for solve pipeline solution design agents.
 ### Key Design Decisions
 
 - **Decision 1**: {what was decided} -- {rationale}
-- **Decision 2**: ...
 
 ## Task List
 
@@ -48,10 +38,8 @@ Ordered list of implementation tasks. Each task should be atomic (completable in
 
 ## Dependency Graph
 
-```
 Task 1 --> Task 3 --> Task 5
 Task 2 --> Task 4 --/
-```
 
 ## Risk Assessment
 
@@ -75,4 +63,3 @@ Task 2 --> Task 4 --/
 | L | N | N * 6h |
 | XL | N | N * 10h |
 | **Total** | N | ~Xh |
-```

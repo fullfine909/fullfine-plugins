@@ -18,9 +18,8 @@ Agents (used as `subagent_type` by skills):
 - `risk-analyst` — Risk assessment and testing strategy
 - `synthesizer` — Multi-agent findings consolidation
 
-**Plugin: `design-skills`**
+**Not a plugin: `design-skills/`**
 
-Skills:
 - `/poster-prompt` — Prompts for text-heavy posters and infographics: model routing
   (GPT Image 2 / Ideogram / Nano Banana / Recraft vector), the 5-to-9 card ceiling,
   exact-string quoting, and which copy must be retyped rather than generated.
@@ -28,6 +27,19 @@ Skills:
 Renders through the `poster` CLI in `~/Dev/tools/poster` (symlinked into
 dj-platform, fullfine-services and pulse as `scripts/poster`). The skill writes the
 prompt; the CLI turns it into a file.
+
+This one is deliberately *not* published through the marketplace. It loads as a plain
+global skill via a symlink:
+
+```bash
+ln -s ~/Dev/tools/claude-skills/plugins/design-skills/skills/poster-prompt \
+      ~/.claude/skills/poster-prompt
+```
+
+Keep it that way — one delivery path per skill. Listing it in `marketplace.json` as
+well would let it load twice, once as `design-skills:poster-prompt` and once bare.
+The `plugins/design-skills/.claude-plugin/plugin.json` left in the tree is vestigial;
+the directory layout stays only because the symlink points into it.
 
 ## Install
 
@@ -37,7 +49,7 @@ In Claude Code, run `/plugins` and add the marketplace:
 fullfine/fullfine-plugins
 ```
 
-Then enable `pipeline-skills`, `design-skills`, or both.
+Then enable `pipeline-skills`.
 
 ## Update
 

@@ -24,8 +24,8 @@ Agents (used as `subagent_type` by skills):
   (GPT Image 2 / Ideogram / Nano Banana / Recraft vector), the 5-to-9 card ceiling,
   exact-string quoting, and which copy must be retyped rather than generated.
 
-Renders through the `poster` CLI in `~/Dev/tools/poster` (symlinked into
-dj-platform, fullfine-services and pulse as `scripts/poster`). The skill writes the
+Renders through the `imagegen` CLI in `~/Dev/tools/imagegen` (symlinked into
+dj-platform, fullfine-services and pulse as `scripts/imagegen`). The skill writes the
 prompt; the CLI turns it into a file.
 
 This one is deliberately *not* published through the marketplace. It loads as a plain
